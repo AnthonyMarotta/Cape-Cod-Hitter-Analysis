@@ -225,8 +225,8 @@ server <- function(input, output, session) {
     statistics <- data_filtered %>%
       summarise(
         Pitches = n(),
-        PA = sum(PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout", "Walk", "HitbyPitch")),
-        AB = sum((PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout")) & !KorBB %in% c("Walk", "HitbyPitch") & !PlayResult %in% c("Sacrifice")),
+        PA = sum(PitchCall %in% c("InPlay", "HitByPitch") | KorBB %in% c("Strikeout", "Walk")),
+        AB = sum((PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout")) & !PitchCall %in% c("HitByPitch") & !KorBB %in% c("Walk") & !PlayResult %in% c("Sacrifice")),
         H = sum(PlayResult %in% c("Single", "Double", "Triple", "HomeRun")),
         `1B` = sum(PlayResult == "Single"),
         `2B` = sum(PlayResult == "Double"),
@@ -281,8 +281,8 @@ server <- function(input, output, session) {
       group_by(Date, OpposingTeam) %>%
       summarise(
         Pitches = n(),
-        PA = sum(PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout", "Walk", "HitbyPitch")),
-        AB = sum((PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout")) & !KorBB %in% c("Walk", "HitbyPitch") & !PlayResult %in% c("Sacrifice")),
+        PA = sum(PitchCall %in% c("InPlay", "HitByPitch") | KorBB %in% c("Strikeout", "Walk")),
+        AB = sum((PitchCall %in% c("InPlay") | KorBB %in% c("Strikeout")) & !PitchCall %in% c("HitByPitch") & !KorBB %in% c("Walk") & !PlayResult %in% c("Sacrifice")),
         H = sum(PlayResult %in% c("Single", "Double", "Triple", "HomeRun")),
         `1B` = sum(PlayResult == "Single"),
         `2B` = sum(PlayResult == "Double"),
